@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Blog\PostRequest;
 use Illuminate\Http\Request;
 use App\Models\Post;
+use Auth;
 
 class PostController extends Controller
 {
@@ -26,7 +27,7 @@ class PostController extends Controller
      */
     public function myPosts()
     {
-
+        return view('blog.my-posts')->with(['posts' => Auth::user()->posts]);
     }
 
     /**
@@ -47,7 +48,9 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        Post::create($request->all());
+        $inputs = $request->all();
+        $inputs['user_id'] = Auth::user()->id;
+        Post::create($inputs);
         return redirect('/myPosts');
     }
 
