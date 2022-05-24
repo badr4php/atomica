@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Create Post') }}
+            {{ __('Posts') }}
         </h2>
     </x-slot>
 
@@ -22,7 +22,10 @@
             <tr>
                 <td class="  p-4 pl-8 text-slate-500 dark:text-slate-400">{{$post->title}}</td>
                 <td class="  p-4 pl-8 text-slate-500 dark:text-slate-400">{{$post->created_at}}</td>
-                <td class="  p-4 pl-8 text-slate-500 dark:text-slate-400">Action</td>
+                <td class="  p-4 pl-8 text-slate-500 dark:text-slate-400">
+                    <a href="{{route('posts.edit', $post->id)}}" class="rounded-md bg-green-500 text-white focus:ring-red-600 px-4 py-2 text-sm">Edit</a>
+                    <a href="{{route('posts.show', $post->id)}}" class="rounded-md bg-blue-500 text-white focus:ring-red-600 px-4 py-2 text-sm">View</a>
+                </td>
             </tr>
         @endforeach
       </tbody>

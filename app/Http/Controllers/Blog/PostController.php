@@ -17,17 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-
-    }
-
-    /**
-     * Display a listing of user's posts.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function myPosts()
-    {
-        return view('blog.my-posts')->with(['posts' => Auth::user()->posts]);
+        return view('blog.index')->with(['posts' => Auth::user()->posts]);
     }
 
     /**
@@ -51,7 +41,7 @@ class PostController extends Controller
         $inputs = $request->all();
         $inputs['user_id'] = Auth::user()->id;
         Post::create($inputs);
-        return redirect('/myPosts');
+        return redirect('/posts');
     }
 
     /**
@@ -60,9 +50,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        return view('blog.show')->with(['post' => $post]);
     }
 
     /**
@@ -71,9 +61,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('blog.update')->with(['post' => $post]);
     }
 
     /**
@@ -83,9 +73,10 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, Post $post)
     {
-        //
+        $post->update($request->all());
+        return redirect('/posts');
     }
 
     /**
