@@ -17,12 +17,12 @@ use App\Http\Controllers\HomeController;
 
 
 Route::get('/', [HomeController::class, 'posts'])->name('home');
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 Route::middleware(['auth'])->group(function () {
     Route::controller(PostController::class)->group(function () {
         Route::get('posts', 'index')->name('posts.index');
         Route::post('posts', 'store')->name('posts.store');
         Route::get('posts/create', 'create')->name('posts.create');
-        Route::get('posts/{post}', 'show')->name('posts.show');
         Route::get('posts/{post}/edit', 'edit')->name('posts.edit');
         Route::put('posts/{post}', 'update')->name('posts.update');
     });
