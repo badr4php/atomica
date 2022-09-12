@@ -17,7 +17,6 @@ use App\Http\Controllers\HomeController;
 
 
 Route::get('/', [HomeController::class, 'posts'])->name('home');
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 Route::middleware(['auth'])->group(function () {
     Route::controller(PostController::class)->group(function () {
         Route::get('posts', 'index')->name('posts.index');
@@ -27,5 +26,6 @@ Route::middleware(['auth'])->group(function () {
         Route::put('posts/{post}', 'update')->name('posts.update');
     });
 });
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
 
 require __DIR__.'/auth.php';
